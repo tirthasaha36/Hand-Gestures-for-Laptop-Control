@@ -55,7 +55,9 @@ def main():
                 # Recognize gesture
                 gesture = gesture_recognizer.recognize_gesture(landmarks)
 
-                # Map gestures to system control
+                # Map gestures to system control (TEMPORARILY DISABLED)
+                # Uncomment and implement these when ready to connect to system controls
+                """
                 if gesture == "open_hand":
                     # Move cursor to index finger tip position
                     x, y = landmarks[8]
@@ -68,6 +70,7 @@ def main():
                     system_controller.volume_up()
                 elif gesture == "pinch":
                     system_controller.volume_down()
+                """
 
                 # Display gesture on frame
                 cv2.putText(frame, f'Gesture: {gesture}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
