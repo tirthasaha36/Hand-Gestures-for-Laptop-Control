@@ -95,8 +95,8 @@ class GestureML:
             print("No trained model found. Please train a model first.")
             return False
 
-    def predict_gesture(self, landmarks):
-        """Predict gesture from landmarks"""
+    def predict_gesture(self, landmarks, confidence_threshold=0.7):
+        """Predict gesture from landmarks with confidence threshold"""
         if self.model is None:
             return "unknown", 0.0
         
@@ -105,10 +105,15 @@ class GestureML:
         
         # Predict
         prediction = self.model.predict(features)[0]
-        probability = np.max(self.model.predict_proba(features))
+        probabilities = self.model.predict_proba(features)[0]
+        max_probability = np.max(probabilities)
+        
+        # Return "unknown" if confidence is below threshold
+        if max_probability < confidence_threshold:
+            return "unknown", max_probability
         
         gesture_name = self.gesture_classes[prediction]
-        return gesture_name, probability
+        return gesture_name, max_probability
 
     def real_time_test(self):
         """Test the model in real-time with webcam"""
@@ -141,8 +146,8 @@ class GestureML:
                     for lm in hand_landmarks.landmark:
                         landmarks.append([lm.x, lm.y, lm.z])
                     
-                    # Predict gesture
-                    gesture_name, confidence = self.predict_gesture(landmarks)
+                    # Predict gesture with confidence threshold
+                    gesture_name, confidence = self.predict_gesture(landmarks, confidence_threshold=0.7)
             
             # Display prediction
             text = f"{gesture_name} ({confidence:.2f})"

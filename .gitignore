@@ -47,6 +47,7 @@ Thumbs.db
 
 # Project specific
 gesture_data/
+advanced_gesture_data/
 models/
 *.pkl
 *.joblib

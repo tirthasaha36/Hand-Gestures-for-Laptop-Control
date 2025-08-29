@@ -4,13 +4,13 @@ import numpy as np
 import joblib
 import os
 
-def real_time_gesture_test():
-    """Test your trained gestures in real-time with webcam"""
+def debug_gesture_recognition():
+    """Debug gesture recognition to see what's happening"""
     
     # Load the trained model
     model_path = "models/gesture_model.pkl"
     if not os.path.exists(model_path):
-        print("No trained model found. Please train a model first.")
+        print("No trained model found.")
         return
     
     model_data = joblib.load(model_path)
@@ -24,18 +24,18 @@ def real_time_gesture_test():
     hands = mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.7)
     mp_draw = mp.solutions.drawing_utils
     
-    # Try camera index 1 (your working camera)
     cap = cv2.VideoCapture(1)
     if not cap.isOpened():
-        print("Camera index 1 not available, trying index 0...")
         cap = cv2.VideoCapture(0)
     
     if not cap.isOpened():
-        print("Error: Could not open any camera.")
+        print("Error: Could not open camera.")
         return
     
-    print("Real-time gesture recognition started!")
-    print("Press 'q' to quit")
+    print("Debug mode started! Press 'q' to quit")
+    print("Press 'd' to see detailed prediction info")
+    
+    show_details = False
     
     while True:
         ret, frame = cap.read()
@@ -48,6 +48,7 @@ def real_time_gesture_test():
         
         gesture_name = "No hand"
         confidence = 0.0
+        detailed_info = ""
         
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
@@ -65,6 +66,14 @@ def real_time_gesture_test():
                 max_probability = np.max(probabilities)
                 prediction = model.predict(features)[0]
                 confidence_threshold = 0.7
+                
+                if show_details:
+                    detailed_info = f"Top predictions:\n"
+                    sorted_indices = np.argsort(probabilities)[::-1]
+                    for i in range(min(3, len(probabilities))):
+                        idx = sorted_indices[i]
+                        detailed_info += f"  {gesture_classes[idx]}: {probabilities[idx]:.3f}\n"
+                
                 if max_probability < confidence_threshold:
                     gesture_name = "unknown"
                     confidence = max_probability
@@ -77,18 +86,28 @@ def real_time_gesture_test():
         cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
                     1, (0, 255, 0), 2, cv2.LINE_AA)
         
-        # Display instructions
-        cv2.putText(frame, "Press 'q' to quit", (10, 60), cv2.FONT_HERSHEY_SIMPLEX,
-                    0.7, (255, 255, 255), 2, cv2.LINE_AA)
+        if show_details and detailed_info:
+            y_offset = 60
+            for line in detailed_info.split('\n'):
+                cv2.putText(frame, line, (10, y_offset), cv2.FONT_HERSHEY_SIMPLEX,
+                            0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                y_offset += 20
         
-        cv2.imshow("Gesture Recognition Test", frame)
+        cv2.putText(frame, "Press 'q' to quit, 'd' for details", (10, frame.shape[0] - 10), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
         
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        cv2.imshow("Gesture Debug", frame)
+        
+        key = cv2.waitKey(1) & 0xFF
+        if key == ord('q'):
             break
+        elif key == ord('d'):
+            show_details = not show_details
+            print(f"Detailed info: {'ON' if show_details else 'OFF'}")
     
     cap.release()
     cv2.destroyAllWindows()
-    print("Real-time test completed.")
+    print("Debug completed.")
 
 if __name__ == "__main__":
-    real_time_gesture_test()
+    debug_gesture_recognition()

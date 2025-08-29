@@ -18,6 +18,7 @@ class GestureRecognizer:
     def recognize_gesture(self, landmarks):
         """
         Recognize gestures based on hand landmarks with screen orientation.
+        Only recognizes the 7 specific trained gestures, returns "unknown" for others.
         landmarks: list of (x, y) tuples normalized [0,1]
         Returns a string representing the gesture.
         """
@@ -28,20 +29,19 @@ class GestureRecognizer:
         for tip, dip in zip(finger_tips, finger_dips):
             fingers_up.append(self.is_finger_up_screen_orientation(landmarks, tip, dip))
 
-        # Check for open hand (all fingers up relative to screen)
+        # Check for open palm (all fingers up relative to screen)
         if all(fingers_up):
-            return "open_hand"
+            return "Open palm"
 
         # Check for fist (all fingers down relative to screen)
         if not any(fingers_up):
-            return "fist"
+            return "Fist (closed hand)"
 
-        # Check for pointing (only index finger up relative to screen)
+        # Check for index finger point (only index finger up relative to screen)
         if fingers_up[1] and not any(fingers_up[0:1] + fingers_up[2:]):
-            return "pointing"
+            return "Index finger point"
 
         # Check for thumb up (thumb up relative to screen, others down)
-        # Additional check: thumb should be significantly extended compared to other fingers
         if fingers_up[0] and not any(fingers_up[1:]):
             # Ensure thumb is clearly extended by checking distance from wrist
             thumb_tip = landmarks[4]
@@ -49,12 +49,20 @@ class GestureRecognizer:
             thumb_extension = self.distance(thumb_tip, wrist)
             
             # Check if thumb is extended enough (not just slightly up)
-            if thumb_extension > 0.15:  # Adjust this threshold as needed
-                return "thumb_up"
+            if thumb_extension > 0.15:
+                return "Thumbs up"
+
+        # Check for thumb down (thumb down relative to screen, others up)
+        if not fingers_up[0] and all(fingers_up[1:]):
+            return "Thumbs down"
 
         # Check for pinch (distance between thumb tip and index tip)
         dist_thumb_index = self.distance(landmarks[4], landmarks[8])
         if dist_thumb_index < 0.05:
-            return "pinch"
+            return "Pinch (thumb + index)"
+
+        # Check for two fingers tap (index and middle fingers up, others down)
+        if fingers_up[1] and fingers_up[2] and not any(fingers_up[0:1] + fingers_up[3:]):
+            return "Two fingers tap in air"
 
         return "unknown"

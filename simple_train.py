@@ -49,6 +49,13 @@ def train_simple_model():
         count = np.sum(y == i)
         print(f"  {gesture}: {count} samples")
     
+    # Check if we have enough samples for good training
+    min_samples_per_class = 500
+    for i, gesture in enumerate(gesture_classes):
+        count = np.sum(y == i)
+        if count < min_samples_per_class:
+            print(f"⚠️  Warning: {gesture} has only {count} samples (recommended: {min_samples_per_class}+ for optimal performance)")
+    
     # Split and train
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     

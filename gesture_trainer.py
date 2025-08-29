@@ -4,6 +4,7 @@ import numpy as np
 import os
 import json
 from datetime import datetime
+import time
 
 class GestureTrainer:
     def __init__(self):
@@ -16,9 +17,10 @@ class GestureTrainer:
         os.makedirs(self.data_dir, exist_ok=True)
         
         self.current_gesture = None
+        self.current_user = None
         self.recording = False
         self.samples_collected = 0
-        self.max_samples = 30  # Samples per gesture
+        self.max_samples = 5000  # Increased to 5000 samples per gesture for optimal training
 
     def collect_gesture_data(self, gesture_name):
         """Collect training data for a specific gesture"""
@@ -83,6 +85,9 @@ class GestureTrainer:
             
             # Record data if recording is active and landmarks are detected
             if self.recording and landmarks_data and self.samples_collected < self.max_samples:
+                # Add small time gap between captures (0.05 seconds)
+                time.sleep(0.05)
+                
                 # Save landmark data
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
                 filename = os.path.join(gesture_dir, f"{timestamp}.json")
