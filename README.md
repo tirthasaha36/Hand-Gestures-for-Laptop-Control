@@ -51,7 +51,7 @@ A Python-based system that enables touchless laptop control using hand gestures 
 
 8. **advanced_training.py** - Advanced ML training
    - Trains models on multi-user advanced gesture data
-   - Supports large datasets (5000 samples per gesture)
+   - Supports large datasets (1500 samples per gesture)
    - Enhanced model evaluation and testing
    - Cross-validation and performance metrics
 

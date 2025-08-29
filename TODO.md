@@ -8,7 +8,7 @@
 - [x] 3. Update real_time_test.py to handle confidence threshold
 - [x] 4. Test the changes
 - [x] 5. Increase training samples from 30 to 5000 per gesture
-- [x] 6. Add time gap (0.1s) between sample captures for better data quality
+- [x] 6. Add time gap (0.05s) between sample captures for better data quality
 - [x] 7. Create advanced gesture trainer for multiple users
 - [x] 8. Create advanced training script for multi-user data
 
