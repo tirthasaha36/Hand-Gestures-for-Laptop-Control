@@ -13,8 +13,21 @@ def main():
     gesture_recognizer = GestureRecognizer()
     system_controller = SystemController()
 
-    # Start video capture
-    cap = cv2.VideoCapture(0)
+    # Start video capture with multiple camera index fallback
+    def open_camera():
+        for i in range(5):
+            cap = cv2.VideoCapture(i)
+            if cap.isOpened():
+                print(f"Camera opened with index {i}")
+                return cap
+            else:
+                cap.release()
+        return None
+
+    cap = open_camera()
+    if cap is None:
+        print("Error: Could not open any camera.")
+        return
 
     while True:
         ret, frame = cap.read()
