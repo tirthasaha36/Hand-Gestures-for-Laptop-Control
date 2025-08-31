@@ -15,7 +15,7 @@ def main():
 
     # Start video capture with multiple camera index fallback
     def open_camera():
-        for i in range(5):
+        for i in range(1, 6):
             cap = cv2.VideoCapture(i)
             if cap.isOpened():
                 print(f"Camera opened with index {i}")
@@ -50,27 +50,20 @@ def main():
                 # Extract normalized landmark coordinates
                 landmarks = []
                 for lm in hand_landmarks.landmark:
-                    landmarks.append((lm.x, lm.y))
+                    landmarks.append([lm.x, lm.y, lm.z])
 
                 # Recognize gesture
                 gesture = gesture_recognizer.recognize_gesture(landmarks)
 
-                # Map gestures to system control (TEMPORARILY DISABLED)
-                # Uncomment and implement these when ready to connect to system controls
-                """
-                if gesture == "open_hand":
+                # Map gestures to system control
+                if gesture == "Open palm":
                     # Move cursor to index finger tip position
-                    x, y = landmarks[8]
+                    x, y, _ = landmarks[8]
                     system_controller.move_cursor(x, y)
-                elif gesture == "fist":
-                    system_controller.left_click()
-                elif gesture == "pointing":
-                    system_controller.right_click()
-                elif gesture == "thumb_up":
+                elif gesture == "Thumbs up":
                     system_controller.volume_up()
-                elif gesture == "pinch":
+                elif gesture == "Thumbs down":
                     system_controller.volume_down()
-                """
 
                 # Display gesture on frame
                 cv2.putText(frame, f'Gesture: {gesture}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
