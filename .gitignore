@@ -62,3 +62,7 @@ logs/
 *.mov
 *.jpg
 *.png
+
+# Ignore pycache files explicitly
+__pycache__/
+*.py[cod]
