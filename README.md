@@ -25,69 +25,55 @@ A Python-based system that enables touchless laptop control using hand gestures 
 
 ### Machine Learning & Data Collection
 
-4. **gesture_trainer.py** - Advanced data collection utility
-   - Records custom gesture samples from webcam (up to 5000 per gesture)
-   - Saves hand landmark data in JSON format
-   - Creates organized folders for each gesture type
-   - 0.05s capture gap for optimal data quality
-
-5. **advanced_gesture_trainer.py** - Multi-user data collection
+4. **advanced_gesture_trainer.py** - Multi-user data collection
    - Supports collecting data from multiple users
    - User-specific data organization
    - High-volume gesture training capability
 
-6. **gesture_ml.py** - Machine learning integration
-   - Trains Random Forest classifier on collected data
-   - Real-time gesture recognition using trained model
-   - Model saving/loading functionality
-   - Confidence threshold (0.7) for "unknown" gesture detection
-
-7. **simple_train.py** - Advanced ML training
-   - Trains model on advanced gesture data
-   - Evaluates model accuracy and performance
-   - Saves trained model for deployment
-
-### Advanced Training & Utilities
-
-8. **advanced_training.py** - Advanced ML training
+5. **advanced_training.py** - Advanced ML training
    - Trains models on multi-user advanced gesture data
    - Supports large datasets (1500 samples per gesture)
    - Enhanced model evaluation and testing
    - Cross-validation and performance metrics
 
-9. **delete_advanced_data.py** - Advanced data management
+6. **test_advanced_model.py** - Advanced model testing
+   - Tests trained model with multi-user data in real-time
+   - Displays recognized gestures and confidence scores
+   - Camera index handling for different setups
+
+### Data Management & Utilities
+
+7. **delete_advanced_data.py** - Advanced data management
    - Selective deletion of advanced gesture data
    - Delete by gesture name, user ID, or both
    - Statistics and user listing functionality
    - Robust Windows permission handling
    - Manual recursive deletion for stubborn files
 
+8. **delete_gesture.py** - Basic gesture management
+   - Lists all available gestures with sample counts
+   - Safely deletes gesture folders and their samples
+   - Handles Windows permission issues automatically
+   - Multiple deletion methods for robustness
+
 ### Testing & Utilities
 
-10. **test_gestures.py** - Data verification
-    - Lists collected gestures and sample counts
-    - Verifies data structure and quality
-    - Checks if enough data exists for training
-
-11. **real_time_test.py** - Real-time testing
-    - Tests trained model with live webcam feed
-    - Displays recognized gestures and confidence scores
-    - Camera index handling for different setups
-
-12. **test_camera.py** - Camera testing
+9. **test_camera.py** - Camera testing
     - Checks available camera indices
     - Tests camera functionality
     - Shows live camera feed
 
-13. **delete_gesture.py** - Basic gesture management
-    - Lists all available gestures with sample counts
-    - Safely deletes gesture folders and their samples
-    - Handles Windows permission issues automatically
-    - Multiple deletion methods for robustness
-
-14. **requirements.txt** - Dependencies
+10. **requirements.txt** - Dependencies
     - Python package requirements
     - OpenCV, MediaPipe, pyautogui, scikit-learn, etc.
+
+### Deprecated Files
+
+- **gesture_ml.py** - Legacy machine learning integration (superseded by advanced_training.py)
+- **test_gestures.py** - Legacy data verification (superseded by advanced_training.py and test_advanced_model.py)
+- **real_time_test.py** - Legacy real-time testing (superseded by test_advanced_model.py)
+- **gesture_trainer.py** - Legacy data collection (superseded by advanced_gesture_trainer.py)
+- **simple_train.py** - Legacy training (superseded by advanced_training.py)
 
 ## Usage
 
@@ -98,22 +84,22 @@ A Python-based system that enables touchless laptop control using hand gestures 
 
 2. **Collect gesture data:**
    ```bash
-   python gesture_trainer.py
+   python advanced_gesture_trainer.py
    ```
 
 3. **Train the model:**
    ```bash
-   python simple_train.py
+   python advanced_training.py
    ```
 
 4. **Test real-time recognition:**
    ```bash
-   python real_time_test.py
+   python test_advanced_model.py
    ```
 
 5. **Manage gestures (optional):**
    ```bash
-   python delete_gesture.py
+   python delete_advanced_data.py
    ```
 
 6. **Run full application:**
