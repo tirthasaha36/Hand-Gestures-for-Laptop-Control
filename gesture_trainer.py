@@ -13,7 +13,7 @@ class GestureTrainer:
         self.mp_draw = mp.solutions.drawing_utils
         
         # Create data directory if it doesn't exist
-        self.data_dir = "gesture_data"
+        self.data_dir = "advanced_gesture_data"
         os.makedirs(self.data_dir, exist_ok=True)
         
         self.current_gesture = None

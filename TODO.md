@@ -57,3 +57,11 @@ advanced_gesture_data/
 1. Use `advanced_gesture_trainer.py` to collect data from multiple people
 2. Use `advanced_training.py` to train models with multi-user data
 3. Collect 1000+ samples per gesture from 3-5 different users for optimal results
+
+### Next Steps:
+- Run `advanced_gesture_trainer.py` to collect new multi-user gesture data
+- Train the model using `advanced_training.py`
+- Test real-time recognition with `test_advanced_model.py`
+- Remove old `gesture_data/` directory when ready to free space
+- Update any scripts or documentation referencing old data paths
+- Let me know if you want me to help automate these migration steps

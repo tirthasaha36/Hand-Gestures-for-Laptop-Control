@@ -8,7 +8,7 @@ import joblib
 
 def train_simple_model():
     """Train a simple ML model without MediaPipe dependency"""
-    data_dir = "gesture_data"
+    data_dir = "advanced_gesture_data"
     model_dir = "models"
     os.makedirs(model_dir, exist_ok=True)
     

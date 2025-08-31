@@ -8,7 +8,7 @@ def real_time_gesture_test():
     """Test your trained gestures in real-time with webcam"""
     
     # Load the trained model
-    model_path = "models/gesture_model.pkl"
+    model_path = "models/advanced_gesture_model.pkl"
     if not os.path.exists(model_path):
         print("No trained model found. Please train a model first.")
         return

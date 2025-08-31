@@ -25,14 +25,14 @@ A Python-based system that enables touchless laptop control using hand gestures 
 
 ### Machine Learning & Data Collection
 
-4. **gesture_trainer.py** - Basic data collection utility
-   - Records custom gesture samples from webcam
+4. **gesture_trainer.py** - Advanced data collection utility
+   - Records custom gesture samples from webcam (up to 5000 per gesture)
    - Saves hand landmark data in JSON format
    - Creates organized folders for each gesture type
+   - 0.05s capture gap for optimal data quality
 
-5. **advanced_gesture_trainer.py** - Advanced multi-user data collection
-   - Supports 5000 samples per gesture from 5 different users
-   - 0.05s capture gap for efficient data collection
+5. **advanced_gesture_trainer.py** - Multi-user data collection
+   - Supports collecting data from multiple users
    - User-specific data organization
    - High-volume gesture training capability
 
@@ -42,9 +42,9 @@ A Python-based system that enables touchless laptop control using hand gestures 
    - Model saving/loading functionality
    - Confidence threshold (0.7) for "unknown" gesture detection
 
-7. **simple_train.py** - Simplified ML training
-   - Trains model without MediaPipe dependency
-   - Evaluates model accuracy
+7. **simple_train.py** - Advanced ML training
+   - Trains model on advanced gesture data
+   - Evaluates model accuracy and performance
    - Saves trained model for deployment
 
 ### Advanced Training & Utilities
