@@ -188,15 +188,20 @@ def analyze_user_performance():
             print(f"User {user}: {np.sum(user_mask)} samples, Accuracy: {user_accuracy:.4f}")
 
 if __name__ == "__main__":
-    print("=== Advanced Gesture Training ===")
-    print("1. Train model with multi-user data")
-    print("2. Analyze user performance")
-    
-    choice = input("Choose an option (1-2): ").strip()
-    
-    if choice == '1':
-        train_advanced_model()
-    elif choice == '2':
-        analyze_user_performance()
-    else:
-        print("Invalid choice.")
+    while True:
+        print("\n=== Advanced Gesture Training ===")
+        print("1. Train model with multi-user data")
+        print("2. Analyze user performance")
+        print("3. Exit")
+
+        choice = input("Choose an option (1-3): ").strip()
+
+        if choice == '1':
+            train_advanced_model()
+        elif choice == '2':
+            analyze_user_performance()
+        elif choice == '3':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
