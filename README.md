@@ -67,13 +67,13 @@ A Python-based system that enables touchless laptop control using hand gestures 
     - Python package requirements
     - OpenCV, MediaPipe, pyautogui, scikit-learn, etc.
 
-### Deprecated Files
+<!-- ### Deprecated Files
 
 - **gesture_ml.py** - Legacy machine learning integration (superseded by advanced_training.py)
 - **test_gestures.py** - Legacy data verification (superseded by advanced_training.py and test_advanced_model.py)
 - **real_time_test.py** - Legacy real-time testing (superseded by test_advanced_model.py)
 - **gesture_trainer.py** - Legacy data collection (superseded by advanced_gesture_trainer.py)
-- **simple_train.py** - Legacy training (superseded by advanced_training.py)
+- **simple_train.py** - Legacy training (superseded by advanced_training.py) -->
 
 ## Usage
 

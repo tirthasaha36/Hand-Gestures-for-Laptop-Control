@@ -15,7 +15,7 @@ def main():
 
     # Start video capture with multiple camera index fallback
     def open_camera():
-        for i in range(1, 6):
+        for i in range(2, 6):   #index changed for tirtha's pc
             cap = cv2.VideoCapture(i)
             if cap.isOpened():
                 print(f"Camera opened with index {i}")
